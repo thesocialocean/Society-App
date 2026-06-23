@@ -1,0 +1,130 @@
+{
+  "entities": {
+    "Resident": {
+      "title": "Resident",
+      "description": "Resident or Shop owner profile details in Gafoor Heights",
+      "type": "object",
+      "properties": {
+        "residentId": { "type": "string" },
+        "flatNumber": { "type": "string" },
+        "wing": { "type": "string" },
+        "ownerName": { "type": "string" },
+        "tenantName": { "type": "string" },
+        "mobile": { "type": "string" },
+        "email": { "type": "string" },
+        "occupancyType": { "type": "string", "enum": ["Owner", "Tenant"] },
+        "monthlyMaintenance": { "type": "number" },
+        "outstandingBalance": { "type": "number" },
+        "status": { "type": "string", "enum": ["Active", "Inactive"] }
+      },
+      "required": ["residentId", "flatNumber", "wing", "ownerName", "mobile", "occupancyType", "monthlyMaintenance", "outstandingBalance", "status"]
+    },
+    "Payment": {
+      "title": "Payment",
+      "description": "Maintenance payment submission and status tracking",
+      "type": "object",
+      "properties": {
+        "paymentId": { "type": "string" },
+        "residentId": { "type": "string" },
+        "flatNumber": { "type": "string" },
+        "residentName": { "type": "string" },
+        "month": { "type": "string" },
+        "amount": { "type": "number" },
+        "transactionId": { "type": "string" },
+        "paymentDate": { "type": "string" },
+        "screenshot": { "type": "string" },
+        "status": { "type": "string", "enum": ["Pending Verification", "Approved", "Rejected"] },
+        "rejectionReason": { "type": "string" },
+        "updatedAt": { "type": "string" }
+      },
+      "required": ["paymentId", "residentId", "flatNumber", "residentName", "month", "amount", "transactionId", "paymentDate", "status"]
+    },
+    "Receipt": {
+      "title": "Receipt",
+      "description": "Auto-generated payment receipt records for approved transactions",
+      "type": "object",
+      "properties": {
+        "receiptNumber": { "type": "string" },
+        "paymentId": { "type": "string" },
+        "flatNumber": { "type": "string" },
+        "residentName": { "type": "string" },
+        "amount": { "type": "number" },
+        "transactionId": { "type": "string" },
+        "paymentDate": { "type": "string" },
+        "verificationDate": { "type": "string" }
+      },
+      "required": ["receiptNumber", "paymentId", "flatNumber", "residentName", "amount", "transactionId", "paymentDate", "verificationDate"]
+    },
+    "Complaint": {
+      "title": "Complaint",
+      "description": "Security, maintenance, water, electricity issues filed by residents",
+      "type": "object",
+      "properties": {
+        "complaintId": { "type": "string" },
+        "flatNumber": { "type": "string" },
+        "residentName": { "type": "string" },
+        "category": { "type": "string", "enum": ["Water Issue", "Lift Issue", "Parking Issue", "Security Issue", "Electricity Issue", "Other"] },
+        "title": { "type": "string" },
+        "description": { "type": "string" },
+        "photo": { "type": "string" },
+        "status": { "type": "string", "enum": ["Open", "In Progress", "Resolved", "Closed"] },
+        "createdDate": { "type": "string" },
+        "updatedAt": { "type": "string" }
+      },
+      "required": ["complaintId", "flatNumber", "residentName", "category", "title", "description", "status", "createdDate"]
+    },
+    "Notice": {
+      "title": "Notice",
+      "description": "Official notices and announcements from the society admin board",
+      "type": "object",
+      "properties": {
+        "noticeId": { "type": "string" },
+        "title": { "type": "string" },
+        "description": { "type": "string" },
+        "date": { "type": "string" },
+        "attachment": { "type": "string" },
+        "createdBy": { "type": "string" }
+      },
+      "required": ["noticeId", "title", "description", "date", "createdBy"]
+    },
+    "ReminderLog": {
+      "title": "ReminderLog",
+      "description": "Log of routine maintenance reminders sent out",
+      "type": "object",
+      "properties": {
+        "logId": { "type": "string" },
+        "action": { "type": "string" },
+        "recipient": { "type": "string" },
+        "date": { "type": "string" },
+        "details": { "type": "string" }
+      },
+      "required": ["logId", "action", "recipient", "date"]
+    }
+  },
+  "firestore": {
+    "residents/{residentId}": {
+      "schema": "Resident",
+      "description": "Collection of Gafoor Heights Residents profiles"
+    },
+    "payments/{paymentId}": {
+      "schema": "Payment",
+      "description": "Collection of payments pending or completed"
+    },
+    "receipts/{receiptId}": {
+      "schema": "Receipt",
+      "description": "Records of auto-generated official PDF receipts"
+    },
+    "complaints/{complaintId}": {
+      "schema": "Complaint",
+      "description": "Collection of registered complaints by residents"
+    },
+    "notices/{noticeId}": {
+      "schema": "Notice",
+      "description": "Official admin communication announcements"
+    },
+    "reminderLogs/{logId}": {
+      "schema": "ReminderLog",
+      "description": "Logs of system payment notifications delivered"
+    }
+  }
+}

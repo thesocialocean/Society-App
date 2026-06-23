@@ -1,0 +1,6 @@
+{
+  "name": "Gafoor Heights Society Management",
+  "description": "Digitized maintenance collection, receipts, complaints, notices, and committee details for Gafoor Heights Society, Pune.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
